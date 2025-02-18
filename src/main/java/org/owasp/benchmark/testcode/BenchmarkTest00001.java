@@ -23,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.owasp.benchmark.helpers.SeparateClassRequest;
 
 @WebServlet(value = "/pathtraver-00/BenchmarkTest00001")
 public class BenchmarkTest00001 extends HttpServlet {
@@ -57,7 +58,10 @@ public class BenchmarkTest00001 extends HttpServlet {
         if (theCookies != null) {
             for (javax.servlet.http.Cookie theCookie : theCookies) {
                 if (theCookie.getName().equals("BenchmarkTest00001")) {
-                    param = java.net.URLDecoder.decode(theCookie.getValue(), "UTF-8");
+                    SeparateClassRequest scr = new SeparateClassRequest(request);
+                    param =
+                            java.net.URLDecoder.decode(
+                                    scr.getTheValue("BenchmarkTest00001"), "UTF-8");
                     break;
                 }
             }
